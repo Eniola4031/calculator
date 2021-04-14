@@ -32,25 +32,54 @@ const numberElArray =[
 ];
 
 //functions
-const handleNumberClick = (numStr) => {
-//console.log(numStr);
-const currentDisplayStr -displayEl.textContent;
-displayEl.textContent = currentDisplayStr + numStr;
+// const getDisplayAsStr = () => {
+//     Const currentDisplayStr = displayEl.textContent;
+//     return currentDisplayStr.split(',').join('');
+// }
+//another way to write the above code
+
+ const getDisplayAsStr = () => 
+          { displayEl.textContent.split(',').join('');
+
+const getDisplayAsNum = () => {
+return parseFloat(getDisplayAsStr());
 };
 
-//Add event listeners to numbers and buttons
+
+
+const handleNumberClick = (numStr) => {
+    const currentDisplayStr = getDisplayAsStr();
+//console.log(numStr);
+if (currentDisplayStr === '0'){
+    displayEl.textContent = numStr;
+}
+else{
+    displayEl.textContent = 
+    parseFloat(currentDisplayStr + numStr).toLocalString();
+}
+ };
+
+
+//Add event listeners to numbers and decimals
 for (let i=0; i < numberElArray.length; i++){
     const numberEl = numberElArray[i];
     numberEl.addeventlistener('click', () => {
-        handleNumberClick(i.toString());
-
+        handleNumberClick(i.toString()); 
     });
 }
 
+decimalEl.addEventListener('click', () => {
+    const currentDisplayStr = getDisplayAsStr();
+//      displayEl.textContent = currentDisplayStr + ','
+// } );
+if (!currentDisplayStr.includes('.')){
+    displayEl.textContent = currentDisplayStr + '.';
+}
+});
 
 
 
-// //setup the time
+//setup the time
 // setInterval(() => { 
 // const currentTime = new Date();
 
@@ -70,11 +99,12 @@ for (let i=0; i < numberElArray.length; i++){
         const currentMinute = currentTime.getMinutes();
 
         if (currentHour > 12) {
-            currentHour -= 12; //current hour subracted by 12
+            currentHour -= 12; //current  hour subracted by 12
         }
 
         hourEl.textContent = currentHour.toString();
-        minuteEl.textContent = currentMinute.toString().padStart(2, '0');
+        minuteEl.textContent = 
+        currentMinute.toString().padStart(2, '0');
     };
     setInterval(updateTime, 1000);
     updateTime();
