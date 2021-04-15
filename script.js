@@ -45,19 +45,40 @@ const getDisplayAsNum = () => {
 return parseFloat(getDisplayAsStr());
 };
 
+const setStrAsDisplay = (displayStr) => {
+    if (displayStr[displayStr.length - 1] === '.'){
+        displayEl.textContent += '.';
+        return ;
 
+    }
+    const [wholeNumStr, decimalStr] = displayStr.split('.');
+    //console.log(wholeNumStr, decimalStr);
+    if (decimalStr){
+displayEl.textContent = 
+parseFloat(wholeNumStr).toLocaleString() + '.' + decimalStr;
+    }
+    else{
+        displayEl.textContent = parseFloat(wholeNumStr).toLocaleString();
+    }
+    displayEl.textContent = 
+    parseFloat(displayStr).toLocaleString();
+}
 
 const handleNumberClick = (numStr) => {
     const currentDisplayStr = getDisplayAsStr();
 //console.log(numStr);
 if (currentDisplayStr === '0'){
-    displayEl.textContent = numStr;
+    setStrAsDisplay(numStr);
 }
 else{
     displayEl.textContent = 
     parseFloat(currentDisplayStr + numStr).toLocalString();
 }
  };
+//Add event listeners to functions
+acEl.addEventListener('click',() => {
+    setStrAsDisplay('0');
+});
 
 
 //Add event listeners to numbers and decimals
@@ -73,7 +94,8 @@ decimalEl.addEventListener('click', () => {
 //      displayEl.textContent = currentDisplayStr + ','
 // } );
 if (!currentDisplayStr.includes('.')){
-    displayEl.textContent = currentDisplayStr + '.';
+    setStrAsDisplay(currentDisplayStr + '.');
+
 }
 });
 
@@ -109,3 +131,4 @@ if (!currentDisplayStr.includes('.')){
     setInterval(updateTime, 1000);
     updateTime();
 
+          }
