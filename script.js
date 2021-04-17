@@ -8,20 +8,20 @@ const calculator = {
   };
   function updateDisplay() {
     // select the element with class of `display`
-    const display = document.querySelector('.calc-screen');
+    const display = document.querySelector('.button');
     // update the value of the element with the contents of `displayValue`
     display.value = calculator.displayValue;
   }
   updateDisplay();
   
-  const keys = document.querySelector('.calc-screen');
+  const keys = document.querySelector('.button');
 keys.addEventListener('click', (event) => {
   // Access the clicked element
   const { target } = event;
 
   // Check if the clicked element is a button.
   // If not, exit from the function
-  if (!target.matches('div')) {
+  if (!target.matches('button')) {
     return;
   }
 
