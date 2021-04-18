@@ -10,7 +10,7 @@ const calculator = {
     // select the element with class of `display`
     const display = document.querySelector('.display');
     // update the value of the element with the contents of `displayValue`
-    display.value = calculator.displayValue;
+    display.value = button.displayValue;
   }
   updateDisplay();
   
