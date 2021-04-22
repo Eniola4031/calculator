@@ -26,29 +26,29 @@ keys.addEventListener('click', (event) => {
   }
 
   if (target.classList.contains('operator')) {
-    console.log('operator', target.value);
+  //  console.log('operator', target.value);
     return;
   }
   if (target.classList.contains('function')) {
-    console.log('function', target.value);
+   // console.log('function', target.value);
     return;
   }
   if (target.classList.contains('number')) {
-    console.log('number', target.value);
+    //console.log('number', target.value);
     return;
   }
 
   if (target.classList.contains('decimal')) {
-    console.log('decimal', target.value);
+    //console.log('decimal', target.value);
     return;
   }
 
   if (target.classList.contains('all-clear')) {
-    console.log('clear', target.value);
+    //console.log('clear', target.value);
     return;
   }
 
-  console.log('digit', target.value);
+ // console.log('digit', target.value);
 });
 const { target } = event;
 // is equivalent to
@@ -59,4 +59,34 @@ function inputDigit(digit) {
     // Overwrite `displayValue` if the current value is '0' otherwise append to it
     calculator.displayValue = displayValue === '0' ? digit : displayValue + digit;
   }
-  console.log('digit', target.value);
+ // console.log('digit', target.value);
+  inputDigit(target.value);
+updateDisplay();
+function inputDecimal(dot) {
+    // If the `displayValue` property does not contain a decimal point
+    if (!calculator.displayValue.includes(dot)) {
+      // Append the decimal point
+      calculator.displayValue += dot;
+    }
+  }
+  //console.log('decimal', target.value);
+  inputDecimal(target.value);
+  updateDisplay();
+  function handleOperator(nextOperator) {
+    // Destructure the properties on the calculator object
+    const { firstOperand, displayValue, operator } = calculator
+    // `parseFloat` converts the string contents of `displayValue`
+    // to a floating-point number
+    const inputValue = parseFloat(displayValue);
+  
+    // verify that `firstOperand` is null and that the `inputValue`
+    // is not a `NaN` value
+    if (firstOperand === null && !isNaN(inputValue)) {
+      // Update the firstOperand property
+      calculator.firstOperand = inputValue;
+    }
+  
+    calculator.waitingForSecondOperand = true;
+    calculator.operator = nextOperator;
+  }
+  
