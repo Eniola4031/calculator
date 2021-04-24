@@ -54,14 +54,27 @@ const { target } = event;
 // is equivalent to
 const target = event.target;
 
+// function inputDigit(digit) {
+//     const { displayValue } = calculator;
+//     // Overwrite `displayValue` if the current value is '0' otherwise append to it
+//     calculator.displayValue = displayValue === '0' ? digit : displayValue + digit;
+//   }
+//  // console.log('digit', target.value);
+//   inputDigit(target.value);
+// updateDisplay();
 function inputDigit(digit) {
-    const { displayValue } = calculator;
-    // Overwrite `displayValue` if the current value is '0' otherwise append to it
-    calculator.displayValue = displayValue === '0' ? digit : displayValue + digit;
+    const { displayValue, waitingForSecondOperand } = calculator;
+  
+    if (waitingForSecondOperand === true) {
+      calculator.displayValue = digit;
+      calculator.waitingForSecondOperand = false;
+    } else {
+      calculator.displayValue = displayValue === '0' ? digit : displayValue + digit;
+    }
+  
+    console.log(calculator);
   }
- // console.log('digit', target.value);
-  inputDigit(target.value);
-updateDisplay();
+  
 function inputDecimal(dot) {
     // If the `displayValue` property does not contain a decimal point
     if (!calculator.displayValue.includes(dot)) {
