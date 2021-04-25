@@ -85,6 +85,7 @@ function inputDecimal(dot) {
   //console.log('decimal', target.value);
   inputDecimal(target.value);
   updateDisplay();
+
   function handleOperator(nextOperator) {
     // Destructure the properties on the calculator object
     const { firstOperand, displayValue, operator } = calculator
@@ -97,9 +98,29 @@ function inputDecimal(dot) {
     if (firstOperand === null && !isNaN(inputValue)) {
       // Update the firstOperand property
       calculator.firstOperand = inputValue;
-    }
+    } else if (operator) {
+        const result = calculate(firstOperand, inputValue, operator);
+    
+        calculator.displayValue = String(result);
+        calculator.firstOperand = result;
+      }
+    
   
     calculator.waitingForSecondOperand = true;
     calculator.operator = nextOperator;
+  }
+  
+  function calculate(firstOperand, secondOperand, operator) {
+    if (operator === '+') {
+      return firstOperand + secondOperand;
+    } else if (operator === '-') {
+      return firstOperand - secondOperand;
+    } else if (operator === '*') {
+      return firstOperand * secondOperand;
+    } else if (operator === '/') {
+      return firstOperand / secondOperand;
+    }
+  
+    return secondOperand;
   }
   
